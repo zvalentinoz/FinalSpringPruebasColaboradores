@@ -25,10 +25,10 @@
                 <td th:text="${transaccion.idtransaccion}"></td>
                 <td th:text="${transaccion.nombreCliente + ' ' + transaccion.apellidoCliente}"></td>
                  <td th:text="${transaccion.fechaRegistro}"></td>
+                     <td th:text="${transaccion.idproducto.nombre}"></td>
     			<td>
     			<img th:src="@{/img2/{img}  (img=${transaccion.idproducto.imgProducto} ) }" width="136" height="136">
     			</td>
-                 <td th:text="${transaccion.idproducto.imgProducto}"></td>
                 <td th:text="${transaccion.idtalla.nombre}"></td>
                 <td th:text="${transaccion.idcolegio.nombre}"></td>
                 <td th:text="${transaccion.cantidad}"></td>
