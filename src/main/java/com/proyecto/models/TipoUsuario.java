@@ -1,6 +1,5 @@
 package com.proyecto.models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,17 +9,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Table(name = "tipos_usuarios")
 @Entity
-@Table(name = "tallas")
-public class Talla {
-
+public class TipoUsuario {
 
 	@Id
-	@Column(name = "id_talla")
-	 private int  idTalla;
-	 
-	@Column(name = "talla")
-	 private String nombre;
+	@Column(name = "id_tipo")
+	 private Integer idTipo;
 	
-
+	@Column(name = "descripcion")
+	private String descripcion;
 }

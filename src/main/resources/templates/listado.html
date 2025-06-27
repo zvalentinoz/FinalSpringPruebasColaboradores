@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>Listado de Ventas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h2>Listado de Ventas</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Imagen</th>
+                <th>Talla</th>
+                <th>Colegio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="transaccion : ${ltTransaccion}">
+                <td th:text="${transaccion.idtransaccion}"></td>
+                <td th:text="${transaccion.nombreCliente + ' ' + transaccion.apellidoCliente}"></td>
+                 <td th:text="${transaccion.fechaRegistro}"></td>
+    			<td>
+    			<img th:src="@{/img2/{img}  (img=${transaccion.idproducto.imgProducto} ) }" width="136" height="136">
+    			</td>
+                 <td th:text="${transaccion.idproducto.imgProducto}"></td>
+                <td th:text="${transaccion.idtalla.nombre}"></td>
+                <td th:text="${transaccion.idcolegio.nombre}"></td>
+                <td th:text="${transaccion.cantidad}"></td>
+                <td th:text="${transaccion.cantidad * transaccion.preciounitario}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
