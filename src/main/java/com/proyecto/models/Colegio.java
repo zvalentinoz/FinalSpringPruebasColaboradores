@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity
@@ -20,6 +21,7 @@ public class Colegio {
 	 
 	@Column(name = "nombre_colegio")
 	 private String nombre;
+
 	
 }
 
