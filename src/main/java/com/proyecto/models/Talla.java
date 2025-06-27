@@ -8,10 +8,12 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
+@Entity
+@Table(name="tallas")
 @Getter
 @Setter
-@Entity
-@Table(name = "tallas")
 public class Talla {
 
 

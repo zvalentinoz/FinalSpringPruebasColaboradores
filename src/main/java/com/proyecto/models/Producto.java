@@ -1,6 +1,7 @@
 package com.proyecto.models;
 
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,11 +14,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+
 @Entity
-@Table(name = "productos")
+@Table(name="productos")
+@Getter
+@Setter
+
 public class Producto {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
