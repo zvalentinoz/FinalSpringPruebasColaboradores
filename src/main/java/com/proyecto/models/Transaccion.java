@@ -1,9 +1,15 @@
 package com.proyecto.models;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+
+
 import java.time.LocalDate;
 
 import org.hibernate.annotations.CollectionIdMutability;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,29 +38,29 @@ public class Transaccion {
     private Integer idtransaccion;
 
     @JoinColumn(name = "codigo_cliente" , nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Usuario codigocliente;
 
     @Column(name="nombre_cliente" , nullable = false)
-    private String nombrecliente;
+    private String nombreCliente;
 
     @Column(name="apellido_cliente" , nullable = false)
-    private String apellidocliente;
+    private String apellidoCliente;
 
     @Column(name="fecha_Registro" , nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
     private LocalDate fechaRegistro;
 
     @JoinColumn(name = "id_producto" , nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Producto idproducto;
 
     @JoinColumn(name = "id_talla" , nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Talla idtalla;
 
     @JoinColumn(name = "id_colegio" , nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Colegio idcolegio;
 
     @Column(name="cantidad"  )
@@ -66,6 +72,8 @@ public class Transaccion {
     @Column(name="precio_total" )
     private Double preciototal;
 
-    @Column(name="estado" ,  nullable = false)
-    private Byte estado;
+    
+    @Column(name="estado" ,  nullable = false )
+    private Boolean estado;
+	
 }

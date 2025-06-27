@@ -1,26 +1,40 @@
 package com.proyecto.models;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name="tbusuario")
+
 @Getter
 @Setter
-public class Usuario {
+@Entity
+@Table(name = "tbusuario")
 
-	@Id
+public class Usuario {
 	
-	@Column(name="CODIGO")
+	@Id
+	@Column(name = "codigo")
 	private int codigo;
 	
-	@Column(name="NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
+  
+	@Column(name = "clave")
+	private String clave;
 	
-	@Column(name="CLAVE")
-	private int clave;
+	@ManyToOne()
+	@JoinColumn(name = "id_tipo")
+	private TipoUsuario tipo;
+	
+	@Column(name="estado" )
+	private Boolean estado;
+
 }
