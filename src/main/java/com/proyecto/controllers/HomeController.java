@@ -22,9 +22,10 @@ public class HomeController {
 	public String listado(Model model , HttpSession session) {
 		// verificacion si existe un usuario logeado en la session
 	if(session.getAttribute("usuario") == null) {
-		
 		return "redirect:/login";
 	}
+	
+	//carga la lista de ventas desde la BD
 		List<Transaccion> listaTransaccion = transaccionService.listarTodas(); 
 		model.addAttribute("ltTransaccion", listaTransaccion);
 	

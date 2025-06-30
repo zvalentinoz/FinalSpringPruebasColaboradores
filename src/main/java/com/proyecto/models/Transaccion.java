@@ -37,9 +37,8 @@ public class Transaccion {
     @Column(name="id_transaccion")
     private Integer idtransaccion;
 
-    @JoinColumn(name = "codigo_cliente" , nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Usuario codigocliente;
+    @Column(name="codigo_cliente")
+    private Integer codigocliente;
 
     @Column(name="nombre_cliente" , nullable = false)
     private String nombreCliente;
@@ -51,16 +50,16 @@ public class Transaccion {
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
     private LocalDate fechaRegistro;
 
-    @JoinColumn(name = "id_producto" , nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_producto" )
     private Producto idproducto;
 
-    @JoinColumn(name = "id_talla" , nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_talla" )
     private Talla idtalla;
 
-    @JoinColumn(name = "id_colegio" , nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_colegio" )
     private Colegio idcolegio;
 
     @Column(name="cantidad"  )
@@ -73,7 +72,10 @@ public class Transaccion {
     private Double preciototal;
 
     
-    @Column(name="estado" ,  nullable = false )
+   
+
+
+	@Column(name="estado" ,  nullable = false )
     private Boolean estado;
 	
 }
