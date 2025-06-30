@@ -22,7 +22,7 @@ public class ColegioController {
 		List<Colegio> lstColegio = servicio.listarTodos();
 		 model.addAttribute("lstColegio", lstColegio);
 		 
-		 return "colegios";
+		 return "colegios"; //retorna la plantilla colegios
 	}
 	
 }

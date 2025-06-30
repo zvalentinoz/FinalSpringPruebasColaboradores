@@ -17,7 +17,7 @@ public class Colegio {
 
 	@Id
 	@Column(name = "id_colegio")
-	 private int  idColegio;
+	 private Integer  idColegio;
 	 
 	@Column(name = "nombre_colegio")
 	 private String nombre;

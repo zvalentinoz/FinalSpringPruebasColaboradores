@@ -20,4 +20,10 @@ public class ProductoServiceImpl implements ProductoService {
 		return productoRepo.findAll();
 	}
 
+	@Override
+	public void registrar(Producto producto) {
+			 productoRepo.save(producto);
+		
+	}
+
 }
