@@ -20,7 +20,7 @@ public class Colegio {
 	 private Integer  idColegio;
 	 
 	@Column(name = "nombre_colegio")
-	 private String nombre;
+	 private String nombreColegio;
 
 	
 }

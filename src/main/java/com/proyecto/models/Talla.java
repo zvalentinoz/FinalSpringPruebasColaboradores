@@ -19,10 +19,10 @@ public class Talla {
 
 	@Id
 	@Column(name = "id_talla")
-	 private Integer  idTalla;
+	 private int  idTalla;
 	 
 	@Column(name = "talla")
-	 private String nombre;
+	 private String nombreTalla;
 	
 
 }

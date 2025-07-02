@@ -7,5 +7,5 @@ import com.proyecto.models.Usuario;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-   Usuario findByNombreAndClave(String nombre , String clave);
+   Usuario findByUsuarioAndContrasena(String usuario , String contrasena);
 }

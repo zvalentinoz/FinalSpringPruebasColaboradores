@@ -5,6 +5,8 @@ package com.proyecto.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,20 +23,27 @@ import lombok.Setter;
 public class Usuario {
 	
 	@Id
-	@Column(name = "codigo")
-	private int codigo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo_usuario")
+	private int codigoUsuario;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre_usuario", nullable = false)
 	private String nombre;
   
-	@Column(name = "clave")
-	private String clave;
+	@Column(name = "apellido_usuario", nullable = false)
+	private String apellido;
+	
+	@Column(name= "user_usuario", nullable = false)
+	private String usuario;
+	
+	@Column(name= "contrasena_usuario" , nullable = false)
+	private String contrasena;
 	
 	@ManyToOne()
-	@JoinColumn(name = "id_tipo")
-	private TipoUsuario tipo;
+	@JoinColumn(name = "id_tipo" , columnDefinition = "INT NOT NULL DEFAULT 2")
+	private TipoUsuario tipoUsuario;
 	
-	@Column(name="estado" )
+	@Column(name="estado" , columnDefinition =  "BIT NOT NULL DEFAULT 1" )
 	private Boolean estado;
 
 }
