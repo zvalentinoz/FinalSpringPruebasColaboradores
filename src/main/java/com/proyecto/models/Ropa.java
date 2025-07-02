@@ -16,22 +16,19 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name="productos")
+@Table(name="ropa")
 @Getter
 @Setter
 
-public class Producto {
-
-
+public class Ropa {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_producto")
-	 private Integer  idProducto;
+	@Column(name = "id_ropa")
+	 private int  idRopa;
 	 
-	@Column(name = "nombre_producto")
-	 private String nombre;
+	@Column(name = "nombre_ropa")
+	 private String nombreRopa;
 	 
-	@Column(name = "img_producto")
-	private String imgProducto;
+	@Column(name = "img_ropa")
+	private String imgRopa;
 	
 }
