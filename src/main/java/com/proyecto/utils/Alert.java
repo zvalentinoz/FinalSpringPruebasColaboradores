@@ -1,6 +1,7 @@
 package com.proyecto.utils;
 
 public class Alert {
+
 	public static String sweetAlertInfo(String text) {
 		return sweetAlert("Información", text, "info");
 	}
@@ -60,9 +61,7 @@ public class Alert {
 								imageUrl: '%s',
 								imageWidth: 400,
 								imageHeight: 400,
-								customClass: {
-									image: 'rounded-circle'
-								}
+								
 							});
 						</script>
 				""";
@@ -86,5 +85,4 @@ public class Alert {
 
 		return String.format(scriptText, title, html, icon);
 	}
-	
 }

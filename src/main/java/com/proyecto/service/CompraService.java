@@ -14,4 +14,5 @@ public interface CompraService {
 	RespuestaResultado  registrarCompra(Compra compra);
 	Compra buscarPorId(String id);
 	RespuestaResultado ActualizarCompra(Compra compra);
+	RespuestaResultado cambiarEstado(String id);
 }

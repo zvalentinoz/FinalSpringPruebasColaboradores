@@ -97,6 +97,14 @@
 	  <groupId>org.springframework.boot</groupId>
 	  <artifactId>spring-boot-starter-security</artifactId>
 	  </dependency>
+	  
+	  <!--JASPER REPORT-->
+	  
+	  <dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.20.0</version>
+		</dependency>
 		
 	</dependencies>
 
