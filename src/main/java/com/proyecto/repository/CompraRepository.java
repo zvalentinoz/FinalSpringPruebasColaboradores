@@ -20,9 +20,11 @@ public interface CompraRepository extends JpaRepository<Compra, String> {
 		     AND (:idTalla IS NULL OR c.idTalla.id = :idTalla) 
 		     AND (:idColegio IS NULL OR c.idColegio.id = :idColegio)
 		     """)
-		List<Compra> findAllWithFilters(@Param("idProveedor") Integer idProveedor,
+	List<Compra> findAllWithFilters(@Param("idProveedor") Integer idProveedor,
 		                               @Param("idRopa") Integer idRopa,
 		                               @Param("idTalla") Integer idTalla,
 		                               @Param("idColegio") Integer idColegio);
+	
+	List<Compra> findAllByEstado(Boolean estado);
 	
 }

@@ -42,7 +42,7 @@ public class Compra {
 
 	@Id
     @Column(name="id_compra")
-	@Pattern(regexp = "P[0-9]{5}" , message = "El codigo de compra no es correcto su formato")
+	@Pattern(regexp = "[CP][0-9]{5}" , message = "El codigo de compra no es correcto su formato")
     private String idCompra;
 	
 	 @Column(name="fecha_Registro" , nullable = false)
@@ -59,10 +59,10 @@ public class Compra {
     @Positive(message = "el precio debe ser mayor a 0")
     private Double preciounitario;
 
-    @Column(name="precio_total" )
+    @Column(name="precio_total", insertable = false, updatable = false)
     private Double preciototal;
 
-	@Column(name="estado" ,  columnDefinition = "BIT NOT NULL DEFAULT 1" )
+	@Column(name="estado")
     private Boolean estado;
     
  
