@@ -116,7 +116,7 @@ public class ComprasController {
 		 // CAMBIO 1: Corregir "sucess" a "success" en Alert.sweetToast
 		 String mensaje = Alert.sweetToast(respuesta.mensaje, "success" , 2000);
 		 redirect.addFlashAttribute("mensaje", mensaje); // CAMBIO 2: Usar "mensaje" como nombre consistente			
-		return "redirect:/compras/filtro"; // Se mantiene la redirección a filtro
+		return "redirect:/compras/listado"; // Se mantiene la redirección a filtro
 	}
 	
 	// Editar la compra
