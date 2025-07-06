@@ -9,11 +9,11 @@
 
 -- Base de datos: `bdproyecto`
 --
-CREATE DATABASE  proyectoFinal;
+
 
 -- borrar si existe 
 DROP DATABASE IF EXISTS proyectoFinal;
-
+CREATE DATABASE  proyectoFinal;
 -- usar bd
 use  proyectoFinal;
 -- --------------------------------------------------------
@@ -41,7 +41,9 @@ CREATE TABLE `tbusuario` (  -- añadido
 INSERT INTO `tbusuario` (`nombre_usuario`, `apellido_usuario`, `user_usuario`,`contrasena_usuario` ,  `id_tipo` , `estado` ) 
 VALUES ('Juan', 'Pérez', 'jperez', '123456', 1, 1),
  ('María', 'Gómez', 'mgomez', 'clave789', 2, 1),
- ('Carlos', 'Ruiz', 'cruiz', 'pass321', 1, 0);
+ ('Carlos', 'Ruiz', 'cruiz', 'pass321', 1, 0),
+    ('Ana', 'López', 'alopez', 'segura123', 2, 1), -- Nuevo usuario para ejemplo
+    ('Pedro', 'Martínez', 'pmartinez', 'abc456', 2, 1); -- Nuevo usuario para ejemplo
 
 
 --
@@ -186,6 +188,69 @@ codigo_usuario int NOT NULL,
 foreign key (codigo_usuario) REFERENCES tbusuario(codigo_usuario)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+use proyectofinal
+
+
+
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    1
+);
+
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    2 -- Ejemplo: Código de usuario 2 (correspondiente a 'María Gómez' en tus datos de ejemplo)
+);
+
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    3 -- Ejemplo: Código de usuario 2 (correspondiente a 'María Gómez' en tus datos de ejemplo)
+);
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    1
+);
+
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    4 -- Ejemplo: Código de usuario 2 (correspondiente a 'María Gómez' en tus datos de ejemplo)
+);
+
+INSERT INTO `proyectoFinal`.`boleta` (
+    `codigo_usuario`
+) VALUES (
+    2 -- Ejemplo: Código de usuario 2 (correspondiente a 'María Gómez' en tus datos de ejemplo)
+);
+
+--
+-- INSERTS ADICIONALES PARA LA TABLA `detalle_boleta`
+--
+-- Para estos inserts, asumimos que ya existen boletas con numero_boleta 1, 2, 3, 4, 5, 6
+-- y compras con id_compra 'C00001', 'C00002', 'C00003', 'C00004', 'C00005', 'C00006'.
+-- Ajusta los 'numero_boleta' y 'id_compra' si tus datos reales son diferentes.
+ 
+/*!50001 DROP VIEW IF EXISTS `v_boleta`*/;
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `proyectofinal`.`v_boleta` AS
+    SELECT 
+        `bol`.`numero_boleta` AS `numero_boleta`,
+        CONCAT('B001 - ',
+                CONVERT( LPAD(`bol`.`numero_boleta`, 8, '0') USING UTF8MB4)) AS `numBolText`,
+        CONCAT(`usu`.`nombre_usuario`, ' ', `usu`.`apellido_usuario`) AS `nombreCompletoUsuario`,
+        `bol`.`fecha_registro` AS `fecha_registro`
+    FROM
+        `proyectofinal`.`boleta` `bol`
+        JOIN 
+	`proyectofinal`.`tbusuario` `usu` ON `bol`.`codigo_usuario` = `usu`.`codigo_usuario`
 
 create table detalle_boleta( 
 numero_boleta int NOT NULL,
@@ -197,8 +262,43 @@ constraint fk_boleta_numero FOREIGN KEY (numero_boleta) REFERENCES boleta(numero
 constraint fk_compra_boleta FOREIGN KEY (id_compra) REFERENCES `compra`(id_compra)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-drop table detalle_boleta
-use proyectoFinal;
+INSERT INTO `proyectoFinal`.`detalle_boleta` (
+    `numero_boleta`,
+    `id_compra`,
+    `cantidad`,
+    `precio_unitario`
+) VALUES
+    (1, 'C00001', 2, 90.00),
+    (1, 'C00002', 1, 150.50),
+    (1, 'C00003', 3, 25.00),
+    (2, 'C00001', 1, 90.00),
+    (2, 'C00004', 2, 50.75),
+    (3, 'C00005', 1, 200.00),
+    (3, 'C00001', 4, 85.00),
+    (4, 'C00002', 2, 160.00),
+    (5, 'C00003', 1, 30.00),
+    (5, 'C00006', 5, 10.00),
+    (6, 'C00004', 3, 55.50);
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `proyectofinal`.`v_detalle_boleta` AS
+    SELECT 
+        `det`.`numero_boleta` AS `num_bol`,
+        `det`.`id_compra` AS `id_compra`,
+        `rop`.`nombre_ropa` AS `nombre_ropa`,
+        `det`.`cantidad` AS `cantidad`,
+        `det`.`precio_unitario` AS `precio_unitario`,
+        (`det`.`cantidad` * `det`.`precio_unitario`) AS `subtotal`
+    FROM
+    -- Tabla principal: detalle_boleta (alias 'det').
+    `proyectoFinal`.`detalle_boleta` `det`
+JOIN
+    `proyectoFinal`.`compra` `com` ON `det`.`id_compra` = `com`.`id_compra`
+JOIN
+    `proyectoFinal`.`ropa` `rop` ON `com`.`id_ropa` = `rop`.`id_ropa`;
 
 -- ver tablas
 SELECT * FROM colegios;
