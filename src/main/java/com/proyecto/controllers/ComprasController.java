@@ -16,11 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.datos.CompraFiltros;
 import com.proyecto.datos.RespuestaResultado;
+import com.proyecto.models.Boleta;
 import com.proyecto.models.Compra;
 import com.proyecto.service.CompraService;
 import com.proyecto.service.ProveedorService;
 import com.proyecto.service.RopaService;
 import com.proyecto.service.TallaService;
+import com.proyecto.service.BoletaService;
 import com.proyecto.service.ColegioService; // Posiblemente necesites este servicio si usas Colegio en editar
 import com.proyecto.utils.Alert;
 
@@ -47,18 +49,23 @@ public class ComprasController {
 
     @Autowired // Posiblemente necesites inyectar ColegioService
     private ColegioService colegioService; 
+    
+    @Autowired // Inyectar el servicio de Boleta
+    private BoletaService boletaService;
 	
-	@GetMapping("/listado")
+    @GetMapping("/listado")
 	public String listado(Model model , HttpSession session) {
 		// Verificación si existe un usuario logeado en la sesión
 		if(session.getAttribute("usuario") == null) {
 			return "redirect:/login";
 		}
 		
-		// Carga la lista de ventas desde la BD
-		List<Compra> listaCompra = compraService.listarTodas(); 
+		List<Compra> listaCompra = compraService.listarTodas();
+		List<Boleta> lstBoletas = boletaService.search(); // Obtener la lista de boletas
+
 		model.addAttribute("ltCompra", listaCompra);
-	
+		model.addAttribute("lstBoletas", lstBoletas); // Añadir la lista de boletas al modelo
+		
 		return "compras/listado";  //listado.html
 	}
 	

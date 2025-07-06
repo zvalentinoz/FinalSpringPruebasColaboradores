@@ -18,10 +18,7 @@
 	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    
-    
 </head>
-
 <style>
         body {
             background: linear-gradient(to right, #2c2c2c, #595959);
@@ -107,6 +104,7 @@
                 <th>Cantidad</th>
                 <th>Total</th>
                 <th>Acciones</th>
+				<th>Ver PDF</th>
             </tr>
         </thead>
 		<tbody>
@@ -140,6 +138,15 @@
 		                                            </div>
 		                                    </form>
 		                                </td>
+										<td>
+										                                <a th:if="${compra.numeroBoletaAsociada != null}"
+										                                   th:href="@{/reportes/boleta(numBol=${compra.numeroBoletaAsociada})}"
+										                                   target="_blank" class="text-danger">
+										                                    <i class="fa-solid fa-file-pdf fa-lg"></i>
+										                                </a>
+										                               
+										                                <span th:if="${compra.numeroBoletaAsociada == null}">N/A</span>
+										                            </td>
 		                            </tr>
 		                        </tbody>
     </table>
