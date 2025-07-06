@@ -6,4 +6,6 @@ import com.proyecto.models.Ropa;
 
 public interface RopaRepository extends JpaRepository<Ropa, Integer> {
 
+	
+	
 }
