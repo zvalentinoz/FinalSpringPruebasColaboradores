@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout :: layoutBase(~{::contenido})">
+	
+<head>
+    <title>Listado de Ventas</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+		integrity="..." crossorigin="anonymous" />
+	<link rel="stylesheet" th:href="@{/css/layout.css}">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+</head>
+<style>
+        body {
+            background: linear-gradient(to right, #2c2c2c, #595959);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            padding-top: 30px;
+        }
+
+        .container {
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+        }
+
+        h2 {
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        .btn-primary {
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: #f2f2f2;
+        }
+
+        .badge-total {
+            background-color: #198754;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .fa-cash-register {
+            margin-right: 6px;
+        }
+    </style>
+
+<div th:fragment="contenido">
+<body class="py-5">
+
+ 	<div class="container">
+ 	 <div class="d-flex justify-content-between align-items-center mb-4">
+ 	     <h2> <i class="fa-solid fa-clipboard-list" ></i> Listado de Ventas</h2>
+ 	      <a th:href="@{/compras/nuevo}" class="btn btn-primary" >
+ 	         <i class="fa-solid fa-cash-register"></i>Registrar Venta
+ 	      </a>
+ 	 </div>
+ 	 
+ 	 <div class="table-reponsive">
+    <table id="tblProductos" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+            	<th>Numero</th>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Ropa</th>
+                <th>Imagen</th>
+                <th>Proveedor</th>
+                <th>Talla</th>
+                <th>Colegio</th>
+                <th>Estado</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
+				<th>Ver PDF</th>
+            </tr>
+        </thead>
+		<tbody>
+		                            <tr th:each="compra, stat : ${ltCompra}">
+		                                <td th:text="${stat.count}"></td>
+		                                <td th:text="${compra.idCompra}"></td>
+		                                <td th:text="${compra.fechaRegistro}"></td>
+		                                <td th:text="${compra.idRopa.nombreRopa}"></td>
+		                                <td>
+		                                    <img th:src="@{/img2/{img}(img=${compra.idRopa.imgRopa})}" width="70" height="70">
+		                                </td>
+		                                <td th:text="${compra.idProveedor.nombreProveedor}"></td>
+		                                <td th:text="${compra.idTalla.nombreTalla}"></td>
+		                                <td th:text="${compra.idColegio.nombreColegio}"></td>
+		                                <td>
+		                                    <span th:class="${compra.estado ? 'badge bg-success' : 'badge bg-danger'}"
+		                                          th:text="${compra.estado ? 'Activo' : 'Inactivo'}"></span>
+		                                </td>
+		                                <td th:text="${compra.cantidad}"></td>
+		                                <td th:text="${#numbers.formatDecimal(compra.cantidad * compra.preciounitario, 1, 2, 'POINT')}" class="text-end"></td>
+		                                <td>
+		                                    <a th:href="@{/compras/editar/{id}(id=${compra.idCompra})}" class="btn btn-outline-secondary"
+		                                        title="Editar" role="button">
+		                                        <i class="fa-solid fa-pen"></i>
+		                                    </a>
+		                                    
+		                                    <form method="post" th:action="@{/compras/cambiar-estado/{id}(id=${compra.idCompra})}">
+		                                        <div class="form-check form-switch">
+		                                            <input class="form-check-input" type="checkbox" th:checked="${compra.estado}"
+		                                                onchange="this.form.submit()">
+		                                            </div>
+		                                    </form>
+		                                </td>
+										<td>
+										                                <a th:if="${compra.numeroBoletaAsociada != null}"
+										                                   th:href="@{/reportes/boleta(numBol=${compra.numeroBoletaAsociada})}"
+										                                   target="_blank" class="text-danger">
+										                                    <i class="fa-solid fa-file-pdf fa-lg"></i>
+										                                </a>
+										                               
+										                                <span th:if="${compra.numeroBoletaAsociada == null}">N/A</span>
+										                            </td>
+		                            </tr>
+		                        </tbody>
+    </table>
+    
+    </div>
+       <script>
+	$(document).ready(function () {
+		$('#tblProductos').DataTable({
+			language: {
+				url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/es-ES.json',
+				search: "Filtro general :",
+			}
+		});
+	});
+</script>
+<th:block th:utext="${alerta}"></th:block>
+    </div>
+</body>
+</div>
+</html>
